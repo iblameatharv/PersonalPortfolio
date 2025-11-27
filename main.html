@@ -1,0 +1,1016 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atharv Verma | Creative Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --bg: #0a0a0a;
+            --bg-light: #141414;
+            --text: #ffffff;
+            --text-muted: #6b6b6b;
+            --accent: #c9ff00;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .cursor {
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease-out;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+        
+        .cursor.active {
+            width: 50px;
+            height: 50px;
+            background: rgba(201, 255, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .cursor {
+                display: none;
+            }
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 48px;
+        }
+        
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 24px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .menu-btn {
+                display: block;
+            }
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 32px;
+            font-weight: 600;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 48px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(201, 255, 0, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero-label {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 32px;
+        }
+        
+        .hero-title {
+            font-size: clamp(48px, 10vw, 120px);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -3px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-title .line2 {
+            display: block;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-desc {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin-bottom: 48px;
+            line-height: 1.7;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            padding: 18px 36px;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(201, 255, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            padding: 16px 34px;
+            border: 1.5px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--text);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .btn-small {
+            padding: 12px 24px;
+            font-size: 13px;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 48px;
+            left: 48px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+        
+        .scroll-line {
+            width: 60px;
+            height: 1px;
+            background: var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 30px;
+            background: var(--accent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+        
+        @keyframes scrollLine {
+            0%,
+            100% {
+                transform: translateX(-30px);
+            }
+            50% {
+                transform: translateX(60px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 24px 60px;
+            }
+            .scroll-indicator {
+                display: none;
+            }
+        }
+        
+        section {
+            padding: 120px 48px;
+        }
+        
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 24px;
+            }
+        }
+        
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+        
+        .about {
+            background: var(--bg-light);
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        @media (max-width: 968px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+        }
+        
+        .about-text p {
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .about-card {
+            background: var(--bg);
+            border-radius: 24px;
+            padding: 48px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #4ecdc4);
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+        
+        .about-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .about-card .subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-row .label {
+            color: var(--text-muted);
+        }
+        
+        .info-row .value {
+            font-weight: 600;
+        }
+        
+        .info-row .value.highlight {
+            color: var(--accent);
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        
+        .skill-tag {
+            padding: 10px 20px;
+            background: rgba(201, 255, 0, 0.1);
+            border: 1px solid rgba(201, 255, 0, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+        }
+        
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1400px;
+            margin: 48px auto 0;
+        }
+        
+        @media (max-width: 968px) {
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .work-card {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+        
+        .work-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(201, 255, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .work-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            font-size: 28px;
+        }
+        
+        .work-icon.github {
+            background: linear-gradient(135deg, #6e5494, #24292e);
+        }
+        
+        .work-icon.vsco {
+            background: linear-gradient(135deg, #ff6b6b, #ffa502);
+        }
+        
+        .work-icon.model {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+        
+        .work-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .work-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .work-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+        
+        .work-card:hover .work-link {
+            gap: 14px;
+        }
+        
+        .work-link.muted {
+            color: var(--text-muted);
+        }
+        
+        .gallery {
+            background: var(--bg-light);
+        }
+        
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            max-width: 1400px;
+            margin: 0 auto 48px;
+        }
+        
+        .gallery-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s ease;
+        }
+        
+        .gallery-link:hover {
+            gap: 14px;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 968px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+        }
+        
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-item:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        .gallery-item .bg {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            transition: transform 0.6s ease;
+        }
+        
+        .gallery-item:hover .bg {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item:first-child .bg {
+            font-size: 80px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 48px auto 0;
+            align-items: start;
+        }
+        
+        @media (max-width: 968px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+        }
+        
+        .contact-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        
+        .contact-email {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-email:hover {
+            color: var(--accent);
+        }
+        
+        .contact-email span {
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-email:hover span {
+            transform: translateX(8px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 48px;
+        }
+        
+        .social-link {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #000;
+            transform: translateY(-4px);
+        }
+        
+        .social-link svg {
+            width: 22px;
+            height: 22px;
+        }
+        
+        .contact-card {
+            background: var(--bg-light);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid var(--border);
+        }
+        
+        .contact-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 32px;
+        }
+        
+        footer {
+            padding: 32px 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            footer {
+                flex-direction: column;
+                gap: 16px;
+                padding: 24px;
+                text-align: center;
+            }
+        }
+        
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+        
+        .delay-4 {
+            transition-delay: 0.4s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <nav>
+        <a href="#" class="logo">AV</a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="menu-btn" id="menuBtn">☰</button>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="fade-up visible">
+            <p class="hero-label">Photographer • Developer • Model</p>
+            <h1 class="hero-title">
+                ATHARV
+                <span class="line2">VERMA</span>
+            </h1>
+            <p class="hero-desc">
+                Class 11th student at Delhi Public School, Rudrapur. Capturing moments, writing code, and exploring new creative horizons.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#work" class="btn btn-secondary">View My Work</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="about-text fade-up">
+                <p class="section-label">About Me</p>
+                <h2 class="section-title">Creating at the intersection of art & technology</h2>
+                <p>
+                    Hello! I'm Atharv, a passionate creative driven by two main pursuits: capturing compelling visuals through photography and building innovative digital solutions with code.
+                </p>
+                <p>
+                    Currently in Class 11th at Delhi Public School, Rudrapur, I thrive on exploring diverse creative avenues. From composing the perfect photograph to architecting functional code, I believe deeply in the transformative power of creation.
+                </p>
+                <p>
+                    Beyond these, I'm also venturing into the exciting world of modeling, actively building my portfolio and connecting with agencies to explore new creative horizons.
+                </p>
+                <div class="skills">
+                    <span class="skill-tag">Photography</span>
+                    <span class="skill-tag">Web Development</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Photo Editing</span>
+                    <span class="skill-tag">Creative Direction</span>
+                </div>
+            </div>
+            <div class="about-card fade-up delay-2">
+                <div class="avatar">AV</div>
+                <h3>Atharv Verma</h3>
+                <p class="subtitle">Multi-disciplinary Creative</p>
+                <div class="info-row">
+                    <span class="label">Location</span>
+                    <span class="value">Rudrapur, India</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">School</span>
+                    <span class="value">DPS Rudrapur</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Grade</span>
+                    <span class="value">Class 11th</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Status</span>
+                    <span class="value highlight">● Available</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="fade-up" style="max-width: 1400px; margin: 0 auto;">
+            <p class="section-label">My Work</p>
+            <h2 class="section-title">What I Create</h2>
+        </div>
+        <div class="work-grid">
+            <a href="https://github.com/iblameatharv" target="_blank" class="work-card fade-up delay-1">
+                <div class="work-icon github">
+                    <svg fill="currentColor" viewBox="0 0 24 24" width="28" height="28"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </div>
+                <h3>Code Projects</h3>
+                <p>Explore my GitHub repositories — from web applications to creative coding experiments and more.</p>
+                <span class="work-link">View GitHub <span>→</span></span>
+            </a>
+
+            <a href="https://vsco.co/iblameatharv" target="_blank" class="work-card fade-up delay-2">
+                <div class="work-icon vsco">
+                    <span style="font-weight: 800; font-size: 18px;">VS</span>
+                </div>
+                <h3>Photography</h3>
+                <p>My visual journey captured through VSCO. Aesthetic edits, raw moments, and visual stories.</p>
+                <span class="work-link">View VSCO <span>→</span></span>
+            </a>
+
+            <div class="work-card fade-up delay-3">
+                <div class="work-icon model">
+                    <span>👔</span>
+                </div>
+                <h3>Modeling</h3>
+                <p>Currently building my portfolio and actively applying to modeling agencies. Stay tuned!</p>
+                <span class="work-link muted">Coming Soon <span style="animation: pulse 2s infinite;">●</span></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="gallery-header fade-up">
+            <div>
+                <p class="section-label">Gallery</p>
+                <h2 class="section-title"><a href="https://vsco.co/iblameatharv" target="_blank" class="gallery-link">
+                View all on VSCO <span>→</span>
+            </a></h2>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-grid">
+            <div class="contact-text fade-up">
+                <p class="section-label">Get In Touch</p>
+                <h2 class="section-title">Let's work together</h2>
+                <p>
+                    Got a project in mind? Want to collaborate on photography or code? Feel free to reach out!
+                </p>
+                <a href="mailto:atharvverma50@gmail.com" class="contact-email">
+                    atharvverma50@gmail.com
+                    <span>→</span>
+                </a>
+                <div class="social-links">
+                    <a href="https://instagram.com/yoo_atharvv" target="_blank" class="social-link">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="https://github.com/iblameatharv" target="_blank" class="social-link">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="https://vsco.co/iblameatharv" target="_blank" class="social-link">
+                        <span style="font-weight: 800; font-size: 14px;">VS</span>
+                    </a>
+                </div>
+            </div>
+            <div class="contact-card fade-up delay-2">
+                <h3>Quick Info</h3>
+                <div class="info-row">
+                    <span class="label">Location</span>
+                    <span class="value">Rudrapur, India</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Email</span>
+                    <span class="value">atharvverma50@gmail.com</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Instagram</span>
+                    <a href="https://instagram.com/yoo_atharvv" target="_blank" class="value highlight" style="text-decoration: none;">@yoo_atharvv</a>
+                </div>
+                <div class="info-row">
+                    <span class="label">Availability</span>
+                    <span class="value highlight">● Open for opportunities</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Atharv Verma. All rights reserved.</p>
+        <p>Designed & Built by Atharv</p>
+    </footer>
+
+    <script>
+        const cursor = document.querySelector('.cursor');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const interactiveElements = document.querySelectorAll('a, button, .work-card, .gallery-item');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            menuBtn.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                menuBtn.textContent = '☰';
+            });
+        });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+```
